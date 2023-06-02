@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('trips', function (Blueprint $table) {
-            $table->string('trip_reference')->unique()->after('id');
+        Schema::table('itineraries', function (Blueprint $table) {
+            $table->integer('sort')->after('station_id')->nullable();
         });
     }
 
     public function down(): void
     {
-        Schema::table('trips', function (Blueprint $table) {
-            $table->dropColumn(['trip_reference']);
+        Schema::table('itineraries', function (Blueprint $table) {
+            $table->dropColumn(['sort']);
         });
     }
 };

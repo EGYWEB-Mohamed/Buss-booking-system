@@ -2,12 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Itinerary;
+use App\Models\Trip;
+use App\Observers\ItinerariesObserver;
 use App\Observers\TripObserver;
-use App\Trip;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,7 @@ class EventServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Trip::observe(TripObserver::class);
+        Itinerary::observe(ItinerariesObserver::class);
     }
 
     /**

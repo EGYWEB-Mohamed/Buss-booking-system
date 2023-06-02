@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\ItineraryResource;
-use App\Itinerary;
+use App\Models\Itinerary;
 use Illuminate\Http\Request;
 
 class ItineraryController extends Controller
@@ -16,8 +16,8 @@ class ItineraryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'trip_id'    => ['required','integer'],
-            'station_id' => ['required','integer'],
+            'trip_id' => ['required', 'integer'],
+            'station_id' => ['required', 'integer'],
         ]);
 
         return new ItineraryResource(Itinerary::create($request->validated()));
@@ -28,11 +28,11 @@ class ItineraryController extends Controller
         return new ItineraryResource($itinerary);
     }
 
-    public function update(Request $request,Itinerary $itinerary)
+    public function update(Request $request, Itinerary $itinerary)
     {
         $request->validate([
-            'trip_id'    => ['required','integer'],
-            'station_id' => ['required','integer'],
+            'trip_id' => ['required', 'integer'],
+            'station_id' => ['required', 'integer'],
         ]);
 
         $itinerary->update($request->validated());

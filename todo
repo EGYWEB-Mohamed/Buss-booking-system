@@ -1,0 +1,5 @@
+Trip
+    where
+        ( selected_start_point = trip_start_point or selected_start_point in trip itineraries_points )
+         and
+        ( selected_end_point = trip_end_point or selected_end_point in trip itineraries_points )

@@ -16,8 +16,8 @@ class ReservationController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'trip_id'   => ['required'],
-            'user_id'   => ['required'],
+            'trip_id' => ['required'],
+            'user_id' => ['required'],
             'confirmed' => ['required'],
         ]);
 
@@ -29,11 +29,11 @@ class ReservationController extends Controller
         return new ReservationResource($reservation);
     }
 
-    public function update(Request $request,Reservation $reservation)
+    public function update(Request $request, Reservation $reservation)
     {
         $request->validate([
-            'trip_id'   => ['required'],
-            'user_id'   => ['required'],
+            'trip_id' => ['required'],
+            'user_id' => ['required'],
             'confirmed' => ['required'],
         ]);
 

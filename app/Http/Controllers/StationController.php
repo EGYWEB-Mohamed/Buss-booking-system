@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\StationResource;
-use App\Station;
+use App\Models\Station;
 use Illuminate\Http\Request;
 
 class StationController extends Controller

@@ -1,14 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
-class Itinerary extends Model
+class Itinerary extends Model implements Sortable
 {
+    use SortableTrait;
 
     protected $fillable = [
         'trip_id',
