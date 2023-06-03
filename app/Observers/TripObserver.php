@@ -24,6 +24,7 @@ class TripObserver
 
     public function updated(Trip $trip): void
     {
+        (new GenerateTripSequences)->generate($trip);
     }
 
     public function deleted(Trip $trip): void
