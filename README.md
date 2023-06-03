@@ -174,15 +174,20 @@ When You Finish Setup the application you can easily run
   php artisan test
   ```
 
-// TODO
+![img.png](git_images/testing.png)
 
 You Got Green Pass So What you are waiting for 😂
 
 <br>
 
 #### Test Cases Coverage:
+✔️ Check home page without auth if redirect to log in ? <br>
+✔️ is user can log in successfully ? <br>
+✔️ is user can see reservation from in home page ? <br>
+✔️ is search from work as expected ? <br>
+✔️ is reservation work ? <br>
 
-// TODO
+<b>5 Test Case With 17 assertions</b>
 
 ## Contributing
 

@@ -33,7 +33,7 @@ class TripResource extends Resource
                 ->schema([
                     TextInput::make('cost')
                         ->required(),
-                    Grid::make(4)
+                    Grid::make(3)
                         ->schema([
                             Select::make('starting_station_id')
                                 ->required()
@@ -43,9 +43,6 @@ class TripResource extends Resource
                                 ->label('End Point ( Station )')
                                 ->required()
                                 ->relationship('endingPoint', 'name'),
-                            TextInput::make('max_seats')
-                                ->numeric()
-                                ->required(),
 
                             Select::make('vehicle_id')
                                 ->required()
@@ -62,15 +59,6 @@ class TripResource extends Resource
                                 ->withoutSeconds()
                                 ->required(),
                         ]),
-
-                    //                    Repeater::make('itineraries')
-                    //                            ->relationship()
-                    //                            ->schema([
-                    //                                Select::make('station_id')
-                    //                                      ->required()
-                    //                                      ->label('Stop Point')
-                    //                                      ->relationship('station','name')
-                    //                            ])
                 ]),
         ]);
     }

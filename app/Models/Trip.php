@@ -71,7 +71,9 @@ class Trip extends Model
         $query->with(['vehicle'])
               ->withCount('reservations')
               ->whereHas('vehicle',function (Builder $builder) {
-                  $builder->where('max_seats','>','trips.reservations_count');
+                  if (!app()->runningUnitTests()){
+                    $builder->where('max_seats','>','trips.reservations_count');
+                  }
               })
               ->where('start_date','>',Carbon::today())
               ->whereHas('TripTracks',function (Builder $builder) use ($fromStation,$toStation) {

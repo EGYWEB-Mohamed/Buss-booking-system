@@ -14,7 +14,6 @@ return new class extends Migration
             $table->foreignId('starting_station_id')->constrained('stations')->cascadeOnDelete();
             $table->foreignId('ending_station_id')->constrained('stations')->cascadeOnDelete();
             $table->foreignId('vehicle_id')->constrained('vehicles')->cascadeOnDelete();
-            $table->integer('max_seats');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->timestamps();

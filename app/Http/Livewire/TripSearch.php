@@ -52,6 +52,7 @@ class TripSearch extends Component
     public function search()
     {
         $this->validate();
+
         $fromStation = $this->fromStation;
         $toStation = $this->toStation;
 
@@ -105,8 +106,9 @@ class TripSearch extends Component
     public function paymentConfirmed(TripReservation $tripReservation)
     {
         $check = $tripReservation->create($this->requiredTrip, intval($this->fromStation), intval($this->toStation));
-
-        $this->alert(($check['success']) ? 'success' : 'error', $check['message']);
+        if (!app()->environment('testing')) {
+            $this->alert(($check['success']) ? 'success' : 'error', $check['message']);
+        }
         $this->search();
     }
 
