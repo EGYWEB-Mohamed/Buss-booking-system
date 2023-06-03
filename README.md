@@ -30,29 +30,6 @@
 
 ## About The Project
 
-Robusta studio wants to build a fleet-management system (bus-booking system) Having:
-
-- Egypt cities as stations [Cairo, Giza, AlFayyum, AlMinya, Asyut...]
-- Predefined trips between 2 stations that cross over in-between stations.
-ex: Cairo to Asyut trip that crosses over AlFayyum -firstly- then AlMinya.
-- Bus for each trip, each bus has 12 available seats to be booked by users, each seat has an
-unique id.
-- Users can book an available trip seat.
-
-    For example we have Cairo-Asyut trip that crosses over AlFayyum -firstly- then AlMinya:
-    any user can book a seat for any of these criteria
-    (Cairo to AlFayyum), (Cairo to AlMinya), (Cairo to Asyut),
-    (AlFayyum to AlMinya), (AlFayyum to Asyut) or
-    (AlMinya to Asyut)
-    if there is an available seat, taking into consideration if the bus is full from Cairo to
-    AlMinya, the user cannot book any seat from AlFayyum but he can book from AlMinya.
-    We require the following:
-    Implement a solution for this case using a Relational-Database and Laravel web app that
-    provides 2 APIs for any consumer(ex: web app, mobile app,...)
-        - User can book a seat if there is an available seat.
-        - User can get a list of available seats to be booked for his trip by sending start and end
-stations.
-
 ![HomePage.png](git_images/HomePage.png)
 
 ### Built With
@@ -136,24 +113,28 @@ This is an example of how to list things you need to Prepare.
 
 ## Usage
 
-In a system that has three main models; Product, Ingredient, and Order.
-A Burger (Product) may have several ingredients:
+Robusta studio wants to build a fleet-management system (bus-booking system) Having:
 
-- 150g Beef
-- 30g Cheese
-- 20g Onion
+- Egypt cities as stations [Cairo, Giza, AlFayyum, AlMinya, Asyut...]
+- Predefined trips between 2 stations that cross over in-between stations.
+  ex: Cairo to Asyut trip that crosses over AlFayyum -firstly- then AlMinya.
+- Bus for each trip, each bus has 12 available seats to be booked by users, each seat has an
+  unique id.
+- Users can book an available trip seat.
 
-The system keeps the stock of each of these ingredients stored in the database. You
-can use the following levels for seeding the database:
-
-- 20kg Beef
-- 5kg Cheese
-- 1kg Onion
-
-When a customer makes an order that includes a Burger. The system needs to update the
-stock of each of the ingredients so it reflects the amounts consumed.
-Also when any of the ingredients stock level reaches 50%, the system should send an
-email message to alert the merchant they need to buy more of this ingredient.
+  For example we have Cairo-Asyut trip that crosses over AlFayyum -firstly- then AlMinya:
+  any user can book a seat for any of these criteria
+  (Cairo to AlFayyum), (Cairo to AlMinya), (Cairo to Asyut),
+  (AlFayyum to AlMinya), (AlFayyum to Asyut) or
+  (AlMinya to Asyut)
+  if there is an available seat, taking into consideration if the bus is full from Cairo to
+  AlMinya, the user cannot book any seat from AlFayyum but he can book from AlMinya.
+  We require the following:
+  Implement a solution for this case using a Relational-Database and Laravel web app that
+  provides 2 APIs for any consumer(ex: web app, mobile app,...)
+  - User can book a seat if there is an available seat.
+  - User can get a list of available seats to be booked for his trip by sending start and end
+  stations.
 
 <!-- USAGE EXAMPLES -->
 <hr>
