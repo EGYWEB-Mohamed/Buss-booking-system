@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Carbon;
 
 class Trip extends Model
 {
@@ -19,19 +18,24 @@ class Trip extends Model
         'start_date',
         'end_date',
     ];
+
     protected $casts = [
         'start_date' => 'datetime',
-        'end_date'   => 'datetime',
+        'end_date' => 'datetime',
+    ];
+
+    protected $withCount = [
+        'reservations',
     ];
 
     public function startingPoint(): BelongsTo
     {
-        return $this->belongsTo(Station::class,'starting_station_id');
+        return $this->belongsTo(Station::class, 'starting_station_id');
     }
 
     public function endingPoint(): BelongsTo
     {
-        return $this->belongsTo(Station::class,'ending_station_id');
+        return $this->belongsTo(Station::class, 'ending_station_id');
     }
 
     public function vehicle(): BelongsTo
@@ -58,10 +62,11 @@ class Trip extends Model
     {
         return $this->max_seats - $this->reservations_count;
     }
+
     protected function isFullyBooked(): Attribute
     {
-        return Attribute::make(
-            get: fn (mixed $value, array $attributes) => $this->reservations_count >= $this->max_seats,
-        );
+        return Attribute::get(function () {
+            return $this->reservations_count >= $this->max_seats;
+        });
     }
 }

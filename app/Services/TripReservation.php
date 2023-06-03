@@ -10,13 +10,12 @@ use Illuminate\Support\Facades\DB;
 
 class TripReservation
 {
-    public function create(Trip $trip,int $fromStation,int $toStation): array
+    public function create(Trip $trip, int $fromStation, int $toStation): array
     {
-
-        if ($trip->is_fully_booked){
+        if ($trip->is_fully_booked) {
             return [
                 'success' => false,
-                'message' => 'Sorry, But This Trip is Fully Booked Now'
+                'message' => 'Sorry, But This Trip is Fully Booked Now',
             ];
         }
         DB::beginTransaction();
@@ -28,18 +27,20 @@ class TripReservation
                 'trip_id' => $trip->id,
                 'from_station' => $fromStation->id,
                 'to_station' => $toStation->id,
-                'confirmed' => true
+                'confirmed' => true,
             ]);
             DB::commit();
+
             return [
                 'success' => true,
-                'message' => 'Reservation Succeed Order ID : #'.$reservation->order_refrance
+                'message' => 'Reservation Succeed Order ID : #'.$reservation->order_reference,
             ];
         } catch (Exception $exception) {
             DB::rollback();
+
             return [
                 'success' => false,
-                'message' => $exception->getMessage()
+                'message' => $exception->getMessage(),
             ];
         }
     }

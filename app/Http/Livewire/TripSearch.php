@@ -22,19 +22,20 @@ class TripSearch extends Component
 
     public $toStation;
 
+    public $trips;
 
-    public Collection $trips;
-
-    public Trip $requiredTrip;
+    public $requiredTrip;
 
     protected $rules = [
         'fromStation' => 'required|exists:stations,id|different:toStation',
-        'toStation'   => 'required|exists:stations,id|different:fromStation',
+        'toStation' => 'required|exists:stations,id|different:fromStation',
     ];
+
     protected $listeners = [
         'paymentConfirmed',
-        'paymentCancelled'
+        'paymentCancelled',
     ];
+
     use LivewireAlert;
 
     public function mount()
@@ -81,45 +82,46 @@ class TripSearch extends Component
         //                     ->get();
 
         $trips = Trip::with(['itineraries'])
-                     ->withCount('reservations')
+            ->withCount('reservations')
 //                     ->havingRaw('max_seats > reservations_count')
-                     ->where('start_date','>',Carbon::today())
-                     ->whereHas('TripTracks',function (Builder $builder) use ($fromStation,$toStation) {
-                         $builder->where([
-                             'from_station_id' => $fromStation,
-                             'to_station_id'   => $toStation,
-                         ]);
-                     })
-                     ->get();
+            ->where('start_date', '>', Carbon::today())
+            ->whereHas('TripTracks', function (Builder $builder) use ($fromStation, $toStation) {
+                $builder->where([
+                    'from_station_id' => $fromStation,
+                    'to_station_id' => $toStation,
+                ]);
+            })
+            ->get();
         $this->trips = $trips;
     }
 
     public function reserveTrip(Trip $trip)
     {
-        $this->confirm('question',[
-            'title'             => 'Are You Sure?',
-            'text'              => 'If Click on confirm you will redirect to process the payment',
+        $this->confirm('question', [
+            'title' => 'Are You Sure?',
+            'text' => 'If Click on confirm you will redirect to process the payment',
             'showConfirmButton' => true,
             'confirmButtonText' => 'Confirm Payment',
             'allowOutsideClick' => true,
-            'showCancelButton'  => true,
-            'cancelButtonText'  => 'Cancel',
-            'onConfirmed'       => 'paymentConfirmed',
-            'onDismissed'       => 'paymentCancelled',
-            'timer'             => false
+            'showCancelButton' => true,
+            'cancelButtonText' => 'Cancel',
+            'onConfirmed' => 'paymentConfirmed',
+            'onDismissed' => 'paymentCancelled',
+            'timer' => false,
         ]);
         $this->requiredTrip = $trip;
     }
 
     public function paymentConfirmed(TripReservation $tripReservation)
     {
-        $check = $tripReservation->create($this->requiredTrip,intval($this->fromStation),intval($this->toStation));
+        $check = $tripReservation->create($this->requiredTrip, intval($this->fromStation), intval($this->toStation));
 
-        $this->alert(($check['success']) ? 'success' : 'error',$check['message']);
+        $this->alert(($check['success']) ? 'success' : 'error', $check['message']);
+        $this->search();
     }
 
     public function paymentCancelled()
     {
-        $this->requiredTrip = new Trip();
+        $this->requiredTrip = null;
     }
 }
