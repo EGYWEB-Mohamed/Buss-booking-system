@@ -99,7 +99,7 @@ class TripSearch extends Component
     {
         $this->confirm('question', [
             'title' => 'Are You Sure?',
-            'text' => 'If Click on confirm you will redirect to process the payment',
+            'text' => 'If Click on confirm you will redirect to process the payment and pay ' . $trip->cost . ' EGP',
             'showConfirmButton' => true,
             'confirmButtonText' => 'Confirm Payment',
             'allowOutsideClick' => true,

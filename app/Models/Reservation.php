@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Scopes\OnlyClientScope;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -20,8 +21,18 @@ class Reservation extends Model
                 'prefix' => 'O-'.date('ymd'),
             ]);
         });
+        parent::addGlobalScope(new OnlyClientScope);
     }
 
+    public function fromStation(): BelongsTo
+    {
+        return $this->belongsTo(Station::class,'from_station');
+    }
+
+    public function toStation(): BelongsTo
+    {
+        return $this->belongsTo(Station::class,'to_station');
+    }
     public function trip(): BelongsTo
     {
         return $this->belongsTo(Trip::class);

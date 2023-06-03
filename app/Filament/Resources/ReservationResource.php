@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\Layout\Grid;
 use Filament\Tables\Columns\TextColumn;
 
 class ReservationResource extends Resource
@@ -25,17 +26,17 @@ class ReservationResource extends Resource
     public static function form(Form $form): Form
     {
         return $form->schema([
-            Card::make()->schema([
-                Select::make('trip_id')
-                    ->relationship('trip', 'trip_reference')
-                    ->required(),
+            Select::make('trip_id')
+                  ->columns(2)
+                  ->relationship('trip', 'trip_reference')
+                  ->required(),
 
-                Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->required(),
+            Select::make('user_id')
+                  ->columns(2)
+                  ->relationship('user', 'name')
+                  ->required(),
 
-                Toggle::make('confirmed'),
-            ]),
+            Toggle::make('confirmed'),
         ]);
     }
 
@@ -43,8 +44,16 @@ class ReservationResource extends Resource
     {
         return $table->columns([
             TextColumn::make('trip.trip_reference'),
-
-            TextColumn::make('user.name'),
+            TextColumn::make('user.name')->hidden(function (){
+                return auth()->user()->hasRole('client');
+            }),
+            TextColumn::make('trip.vehicle.driver_name')->label('Drive Name & Vehicle Plate Number')->description(fn (Reservation $record): string => $record->trip->vehicle->plate_number),
+            TextColumn::make('fromStation.name')
+                      ->description(fn(Reservation $record): string => 'Bus Itinerary : '.$record->trip->startingPoint->name)
+                      ->label('From Station'),
+            TextColumn::make('toStation.name')
+                      ->description(fn(Reservation $record): string => 'Bus Itinerary : '.$record->trip->endingPoint->name)
+                      ->label('To Station'),
 
             IconColumn::make('confirmed')->boolean(),
         ])->actions([
@@ -56,7 +65,6 @@ class ReservationResource extends Resource
     {
         return [
             'index' => Pages\ListReservations::route('/'),
-            'create' => Pages\CreateReservation::route('/create'),
             'edit' => Pages\EditReservation::route('/{record}/edit'),
         ];
     }

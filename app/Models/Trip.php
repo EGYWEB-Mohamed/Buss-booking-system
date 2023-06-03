@@ -50,7 +50,7 @@ class Trip extends Model
 
     public function reservations(): HasMany
     {
-        return $this->hasMany(Reservation::class);
+        return $this->hasMany(Reservation::class)->withoutGlobalScopes();
     }
 
     public function TripTracks(): HasMany

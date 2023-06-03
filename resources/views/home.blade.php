@@ -23,14 +23,22 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{{ url('/') }}">Home</a>
                 </li>
+                @auth()
+                    <li class="nav-item">
+                        <a href="{{ route('filament.resources.reservations.index') }}" class="nav-link">Reservation</a>
+                    </li>
+                @endauth
             </ul>
 
             <div class="d-flex">
                 <ul class="navbar-nav me-auto">
                     @auth()
                         <li class="nav-item mx-1"><a href="{{ route('filament.pages.dashboard') }}" class="btn btn-primary">Account</a></li>
-                        <li class="nav-item mx-1"><a href="{{ route('filament.auth.logout') }}" class="btn btn-danger">Logout</a></li>
-                    @elseauth()
+                        <form id="logout"  action="{{ route('filament.auth.logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                        <li class="nav-item mx-1"><button form="logout" type="submit" href="{{ route('filament.auth.logout') }}" class="btn btn-danger">Logout</button></li>
+                    @else
                         <li class="nav-item mx-1"><a href="{{ route('filament.auth.login') }}" class="btn btn-success">Login</a></li>
                         <li class="nav-item mx-1"><a href="{{ route('register') }}" class="btn btn-primary">Register</a></li>
                     @endauth
