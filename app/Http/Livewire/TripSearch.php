@@ -81,17 +81,7 @@ class TripSearch extends Component
         //                     })
         //                     ->get();
 
-        $trips = Trip::with(['itineraries'])
-            ->withCount('reservations')
-//                     ->havingRaw('max_seats > reservations_count')
-            ->where('start_date', '>', Carbon::today())
-            ->whereHas('TripTracks', function (Builder $builder) use ($fromStation, $toStation) {
-                $builder->where([
-                    'from_station_id' => $fromStation,
-                    'to_station_id' => $toStation,
-                ]);
-            })
-            ->get();
+        $trips = Trip::search($fromStation,$toStation)->get();
         $this->trips = $trips;
     }
 

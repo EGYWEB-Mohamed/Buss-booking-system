@@ -10,6 +10,7 @@ class Vehicles extends Model
     protected $fillable = [
         'driver_name',
         'plate_number',
+        'max_seats',
     ];
 
     public function trip(): BelongsTo

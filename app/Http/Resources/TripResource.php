@@ -12,10 +12,15 @@ class TripResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'starting_station_id' => $this->starting_station_id,
-            'ending_station_id' => $this->ending_station_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'trip_reference' => $this->trip_reference,
+            'cost' => $this->cost,
+            'starting_station' => StationResource::make($this->startingPoint),
+            'ending_station' => StationResource::make($this->endingPoint),
+            'vehicle' => vehiclesResource::make($this->vehicle),
+            'available_seats' => $this->AvailableSeats(),
+            'is_fully_booked' => $this->is_fully_booked,
+            'created_at' => DateTimeResource::make($this->created_at),
+            'updated_at' => DateTimeResource::make($this->updated_at),
         ];
     }
 }

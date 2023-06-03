@@ -13,8 +13,8 @@ class StationResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'created_at' => DateTimeResource::make($this->created_at),
+            'updated_at' => DateTimeResource::make($this->updated_at),
         ];
     }
 }

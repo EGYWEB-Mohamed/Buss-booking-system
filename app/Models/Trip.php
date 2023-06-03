@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,7 +23,7 @@ class Trip extends Model
 
     protected $casts = [
         'start_date' => 'datetime',
-        'end_date' => 'datetime',
+        'end_date'   => 'datetime',
     ];
 
     protected $withCount = [
@@ -30,12 +32,12 @@ class Trip extends Model
 
     public function startingPoint(): BelongsTo
     {
-        return $this->belongsTo(Station::class, 'starting_station_id');
+        return $this->belongsTo(Station::class,'starting_station_id');
     }
 
     public function endingPoint(): BelongsTo
     {
-        return $this->belongsTo(Station::class, 'ending_station_id');
+        return $this->belongsTo(Station::class,'ending_station_id');
     }
 
     public function vehicle(): BelongsTo
@@ -50,7 +52,8 @@ class Trip extends Model
 
     public function reservations(): HasMany
     {
-        return $this->hasMany(Reservation::class)->withoutGlobalScopes();
+        return $this->hasMany(Reservation::class)
+                    ->withoutGlobalScopes();
     }
 
     public function TripTracks(): HasMany
@@ -60,13 +63,29 @@ class Trip extends Model
 
     public function AvailableSeats(): int
     {
-        return $this->max_seats - $this->reservations_count;
+        return $this->vehicle->max_seats - $this->reservations_count;
+    }
+
+    public function scopeSearch($query,int $fromStation,int $toStation)
+    {
+        $query->with(['vehicle'])
+              ->withCount('reservations')
+              ->whereHas('vehicle',function (Builder $builder) {
+                  $builder->where('max_seats','>','trips.reservations_count');
+              })
+              ->where('start_date','>',Carbon::today())
+              ->whereHas('TripTracks',function (Builder $builder) use ($fromStation,$toStation) {
+                  $builder->where([
+                      'from_station_id' => $fromStation,
+                      'to_station_id'   => $toStation,
+                  ]);
+              });
     }
 
     protected function isFullyBooked(): Attribute
     {
         return Attribute::get(function () {
-            return $this->reservations_count >= $this->max_seats;
+            return $this->reservations_count >= $this->vehicle->max_seats;
         });
     }
 }

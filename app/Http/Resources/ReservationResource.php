@@ -12,11 +12,14 @@ class ReservationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'trip_id' => $this->trip_id,
-            'user_id' => $this->user_id,
-            'confirmed' => $this->confirmed,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            'order_reference' => $this->order_reference,
+            'trip' => TripResource::make($this->trip),
+            'user' => UserResource::make($this->user),
+            'from_station' => StationResource::make($this->fromStation),
+            'to_station' => StationResource::make($this->toStation),
+            'confirmed' => (boolean) $this->confirmed,
+            'created_at' => DateTimeResource::make($this->created_at),
+            'updated_at' => DateTimeResource::make($this->updated_at),
         ];
     }
 }

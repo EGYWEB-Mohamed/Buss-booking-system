@@ -1,6 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\ReservationController;
+use App\Http\Controllers\API\StationController;
+use App\Http\Controllers\API\TripController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login',[AuthController::class,'login']);
+Route::post('register',[AuthController::class,'register']);
+Route::group(['prefix' => 'account','middleware' => ['auth:sanctum']],function () {
+    Route::apiResource('reservation',ReservationController::class)
+         ->only(['index','store','show']);
+    Route::get('trip',[TripController::class,'search']);
+    Route::apiResource('station',StationController::class)
+         ->only(['index']);
 });

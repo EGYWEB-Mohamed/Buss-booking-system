@@ -84,7 +84,7 @@ class TripResource extends Resource
             TextColumn::make('startingPoint.name'),
             TextColumn::make('endingPoint.name'),
             TextColumn::make('vehicle.plate_number'),
-            TextColumn::make('max_seats'),
+            TextColumn::make('vehicle.max_seats'),
             TextColumn::make('start_date')
                 ->dateTime('d/m/y h:i a'),
             TextColumn::make('end_date')

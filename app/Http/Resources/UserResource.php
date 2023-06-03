@@ -5,16 +5,15 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin \App\Models\vehicles */
-class vehiclesResource extends JsonResource
+/** @mixin \App\Models\User */
+class UserResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'plate_number' => $this->plate_number,
-            'driver_name' => $this->driver_name,
-            'max_seats'   =>  $this->max_seats,
+            'id'                         => $this->id,
+            'name'                       => $this->name,
+            'email'                      => $this->email,
             'created_at' => DateTimeResource::make($this->created_at),
             'updated_at' => DateTimeResource::make($this->updated_at),
         ];

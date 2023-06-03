@@ -18,6 +18,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#api">API</a></li>
     <li><a href="#digram">Database Digram</a></li>
     <li><a href="#testing">Testing</a></li>
     <li><a href="#images">Images</a></li>
@@ -118,8 +119,7 @@ Robusta studio wants to build a fleet-management system (bus-booking system) Hav
 - Egypt cities as stations [Cairo, Giza, AlFayyum, AlMinya, Asyut...]
 - Predefined trips between 2 stations that cross over in-between stations.
   ex: Cairo to Asyut trip that crosses over AlFayyum -firstly- then AlMinya.
-- Bus for each trip, each bus has 12 available seats to be booked by users, each seat has an
-  unique id.
+- Bus for each trip, each bus has 12 available seats to be booked by users, each seat has an unique id.
 - Users can book an available trip seat.
 
   For example we have Cairo-Asyut trip that crosses over AlFayyum -firstly- then AlMinya:
@@ -139,6 +139,18 @@ Robusta studio wants to build a fleet-management system (bus-booking system) Hav
 <!-- USAGE EXAMPLES -->
 <hr>
 
+## Api
+
+The System integrated with ready to use API. Just download [This collection](Buss%20Booking.postman_collection.json) and open it with [Postman](https://www.postman.com/).
+
+Also, here's live [Documentation](https://documenter.getpostman.com/view/7501952/2s93sW8abr).
+
+![img_5.png](git_images/img_5.png)
+
+*Note* Required Auth Directory is required Bearer Token So pass it
+
+<hr>
+
 ## Digram
 
 ![DB.png](git_images/DB.png)
@@ -146,11 +158,11 @@ Robusta studio wants to build a fleet-management system (bus-booking system) Hav
 <hr>
 
 ## Images
-![img.png](img.png)
-![img_1.png](img_1.png)
-![img_2.png](img_2.png)
-![img_3.png](img_3.png)
-![img_4.png](img_4.png)
+![img.png](git_images/img.png)
+![img_1.png](git_images/img_1.png)
+![img_2.png](git_images/img_2.png)
+![img_3.png](git_images/img_3.png)
+![img_4.png](git_images/img_4.png)
 
 <hr>
 

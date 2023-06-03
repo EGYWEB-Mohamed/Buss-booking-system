@@ -26,14 +26,9 @@ class VehiclesResource extends Resource
                 ->required(),
             TextInput::make('plate_number')
                 ->required(),
-
-            Placeholder::make('created_at')
-                ->label('Created Date')
-                ->content(fn (?Vehicles $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-            Placeholder::make('updated_at')
-                ->label('Last Modified Date')
-                ->content(fn (?Vehicles $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+            TextInput::make('max_seats')
+                ->numeric()
+                ->required(),
         ]);
     }
 
@@ -42,6 +37,7 @@ class VehiclesResource extends Resource
         return $table->columns([
             TextColumn::make('plate_number'),
             TextColumn::make('driver_name'),
+            TextColumn::make('max_seats'),
         ]);
     }
 
