@@ -83,25 +83,25 @@ This is an example of how to list things you need to Prepare.
 
   ```sh
   DB_DATABASE=
-  DB_TEST_DATABASE=
   DB_USERNAME=
   DB_PASSWORD=
-  ....
-  MAIL_HOST=
-  MAIL_PORT=587
-  MAIL_USERNAME=
-  MAIL_PASSWORD=
   ```
 
 - Then Run To Migrate All Database Also to seed with dummy data
   ```ssh
-  php artisan migration --seed
+  php artisan migrate --seed
   ```
     - Account Credential
-      ```
-      Email : admin@test.com
-      Password :  123456
-      ```
+      - Admin
+        ```
+        Email : admin@test.com
+        Password :  123456789
+        ```
+      - Client
+        ```
+        Email : client@test.com
+        Password :  123456789
+        ```
 - If your using local server don't forget to run `php artisan serv` or you can navigate from localhost correct
   installation path
 
