@@ -1,4 +1,10 @@
 <?php
+/*
+ * Made With ♥ By Mohamed Said
+ * GitHub: https://github.com/EGYWEB-Mohamed
+ * Email: me@msaied.com
+ * Website: https://msaied.com/
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
