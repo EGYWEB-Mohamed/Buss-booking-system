@@ -42,7 +42,6 @@ class GenerateTripSequences
                 ];
             }
         }
-
         return $combinations;
     }
 }
